@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">UpcomingMovies</string>
+    <string name="search">Search</string>
+    <string name="release_date">Release Date</string>
+    <string name="title">Title</string>
+    <string name="genre">Genre</string>
+</resources>

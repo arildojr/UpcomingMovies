@@ -1,0 +1,93 @@
+package com.example.arildojunior.upcomingmovies.view
+
+import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.view.KeyEvent
+import android.view.inputmethod.InputMethodManager
+import io.reactivex.Observable
+import io.reactivex.ObservableOnSubscribe
+import com.example.arildojunior.upcomingmovies.App
+import com.example.arildojunior.upcomingmovies.R
+import com.example.arildojunior.upcomingmovies.viewmodel.MoviesViewModel
+import com.example.arildojunior.upcomingmovies.viewmodel.ViewModelFactory
+import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_movies.*
+import com.example.arildojunior.upcomingmovies.extension.UIExtensions
+
+class MoviesFragment : Fragment(), View.OnClickListener {
+
+    companion object {
+        fun newInstance() = MoviesFragment()
+    }
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private lateinit var viewModel: MoviesViewModel
+
+    private var moviesAdapter: MoviesAdapter? = null
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View {
+        App.component.inject(this)
+        return inflater.inflate(R.layout.fragment_movies, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        recyclerView.layoutManager = LinearLayoutManager(this.activity)
+        initViewModel()
+        setSearchListener()
+    }
+
+    private fun initViewModel() {
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(MoviesViewModel::class.java)
+        viewModel.currentSearch.observe(this, Observer { query -> textView.text = query })
+        viewModel.progressVisibility.observe(this, Observer { visibility ->
+            progressBar.visibility = if (visibility!!) View.VISIBLE else View.GONE
+        })
+        viewModel.moviesList.observe(this, Observer { list ->
+            list?.let {
+                moviesAdapter = MoviesAdapter(it, this@MoviesFragment)
+                recyclerView.adapter = moviesAdapter
+            }
+        })
+        viewModel.fetchUpcomingMovies(1)
+    }
+
+    private fun setSearchListener() {
+        val searchObservable = Observable.create(ObservableOnSubscribe<String> { subscriber ->
+            editText.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) = Unit
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int){
+                    val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(editText.getWindowToken(), 0)
+                    subscriber.onNext(s.toString())
+                }
+            })
+        })
+
+        viewModel.searchObservableReady(searchObservable)
+    }
+
+
+    //View.OnClickListener
+    override fun onClick(v: View?) {
+        val holder = v?.tag as MoviesAdapter.MovieViewHolder
+        val movie = moviesAdapter?.getMovie(holder.adapterPosition)
+
+        movie?.let {
+            //mPresenter.onImageClick(it)
+        }
+    }
+
+}
