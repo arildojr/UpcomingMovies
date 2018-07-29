@@ -8,22 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.arch.paging.PagedList
 import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.view.KeyEvent
 import android.view.inputmethod.InputMethodManager
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import com.example.arildojunior.upcomingmovies.App
 import com.example.arildojunior.upcomingmovies.R
+import com.example.arildojunior.upcomingmovies.data.room.model.MovieDB
 import com.example.arildojunior.upcomingmovies.viewmodel.MoviesViewModel
 import com.example.arildojunior.upcomingmovies.viewmodel.ViewModelFactory
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_movies.*
-import com.example.arildojunior.upcomingmovies.extension.UIExtensions
 
-class MoviesFragment : Fragment(), View.OnClickListener {
+class MoviesFragment : Fragment(){
 
     companion object {
         fun newInstance() = MoviesFragment()
@@ -33,7 +33,7 @@ class MoviesFragment : Fragment(), View.OnClickListener {
 
     private lateinit var viewModel: MoviesViewModel
 
-    private var moviesAdapter: MoviesAdapter? = null
+    private var moviesAdapter: MoviesAdapter = MoviesAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -45,6 +45,7 @@ class MoviesFragment : Fragment(), View.OnClickListener {
         super.onActivityCreated(savedInstanceState)
         recyclerView.layoutManager = LinearLayoutManager(this.activity)
         initViewModel()
+        initAdapter()
         setSearchListener()
     }
 
@@ -54,13 +55,14 @@ class MoviesFragment : Fragment(), View.OnClickListener {
         viewModel.progressVisibility.observe(this, Observer { visibility ->
             progressBar.visibility = if (visibility!!) View.VISIBLE else View.GONE
         })
-        viewModel.moviesList.observe(this, Observer { list ->
-            list?.let {
-                moviesAdapter = MoviesAdapter(it, this@MoviesFragment)
-                recyclerView.adapter = moviesAdapter
-            }
+        viewModel.getUpcomingMovies()
+    }
+
+    private fun initAdapter() {
+        recyclerView.adapter = moviesAdapter
+        viewModel.pagedListMovie.observe(this, Observer<PagedList<MovieDB>> {
+            moviesAdapter.submitList(it)
         })
-        viewModel.fetchUpcomingMovies(1)
     }
 
     private fun setSearchListener() {
@@ -80,14 +82,14 @@ class MoviesFragment : Fragment(), View.OnClickListener {
     }
 
 
-    //View.OnClickListener
-    override fun onClick(v: View?) {
-        val holder = v?.tag as MoviesAdapter.MovieViewHolder
-        val movie = moviesAdapter?.getMovie(holder.adapterPosition)
-
-        movie?.let {
-            //mPresenter.onImageClick(it)
-        }
-    }
+//    //View.OnClickListener
+//    override fun onClick(v: View?) {
+//        val holder = v?.tag as MoviesAdapter.MovieViewHolder
+//        val movie = moviesAdapter?.getMovie(holder.adapterPosition)
+//
+//        movie?.let {
+//            //mPresenter.onImageClick(it)
+//        }
+//    }
 
 }

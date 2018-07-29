@@ -3,21 +3,22 @@ package com.example.arildojunior.upcomingmovies.viewmodel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.arch.paging.PagedList
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.exceptions.OnErrorNotImplementedException
-import io.reactivex.schedulers.Schedulers
-import com.example.arildojunior.upcomingmovies.api.APIClient
-import com.example.arildojunior.upcomingmovies.model.Movie
-import com.example.arildojunior.upcomingmovies.model.MoviesList
+import com.example.arildojunior.upcomingmovies.data.repository.MoviesRepository
+import com.example.arildojunior.upcomingmovies.data.room.model.MovieDB
+import com.example.arildojunior.upcomingmovies.data.api.model.Movie
 import java.util.concurrent.TimeUnit
 
 
-class MoviesViewModel(private val apiClient: APIClient): ViewModel() {
+class MoviesViewModel(private val moviesRepository: MoviesRepository): ViewModel() {
 
     private val disposables = CompositeDisposable()
 
+    var pagedListMovie = MutableLiveData<PagedList<MovieDB>>()
     private val _currentSearch: MutableLiveData<String> = MutableLiveData()
     private val _moviesList: MutableLiveData<List<Movie>> = MutableLiveData()
     private val _progressVisibility: MutableLiveData<Boolean> = MutableLiveData()
@@ -29,15 +30,13 @@ class MoviesViewModel(private val apiClient: APIClient): ViewModel() {
     val progressVisibility :LiveData<Boolean>
         get() = _progressVisibility
 
-    fun fetchUpcomingMovies (page: Int) {
+    fun getUpcomingMovies () {
         _progressVisibility.value = true
-        disposables.add(
-                apiClient.getUpcomingMoviesObservable(page)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({ list: MoviesList? ->
-                            onMoviesReceived(list)
-                        }))
+        disposables.add(moviesRepository.fetchUpcomingMovies()
+                .subscribe({
+                    pagedListMovie.value = it
+                    _progressVisibility.value = false
+                }, { it.printStackTrace() }))
     }
 
     fun searchObservableReady(searchObservable: Observable<String>) {
@@ -55,13 +54,6 @@ class MoviesViewModel(private val apiClient: APIClient): ViewModel() {
     private fun onNewSearchQuery(text: String?) {
         if (text == null || text.length < 1) {
             return
-        }
-    }
-
-    private fun onMoviesReceived(list: MoviesList?) {
-        _progressVisibility.value = false
-        if (list?.upcomingMovies?.size != null) {
-            _moviesList.value = list.upcomingMovies
         }
     }
 
