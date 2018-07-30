@@ -3,13 +3,10 @@ package com.example.arildojunior.upcomingmovies.data.repository
 import android.arch.paging.PagedList
 import android.util.Log
 import com.example.arildojunior.upcomingmovies.data.api.APIDataFactory
-import com.example.arildojunior.upcomingmovies.data.api.model.Genre
 import com.example.arildojunior.upcomingmovies.data.room.model.MovieDB
 import com.example.arildojunior.upcomingmovies.data.room.RoomDataFactory
 import com.example.arildojunior.upcomingmovies.data.room.model.GenreDB
 import io.reactivex.schedulers.Schedulers
-import java.util.*
-import java.util.concurrent.TimeUnit
 
 class PageListMovieCallback(private val apiDataFactory: APIDataFactory,
                             private val roomDataFactory: RoomDataFactory) : PagedList.BoundaryCallback<MovieDB>() {

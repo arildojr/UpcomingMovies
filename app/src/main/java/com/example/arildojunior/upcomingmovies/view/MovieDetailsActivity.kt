@@ -2,7 +2,6 @@ package com.example.arildojunior.upcomingmovies.view
 
 import android.content.Context
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -12,9 +11,7 @@ import com.example.arildojunior.upcomingmovies.data.bus.RxBus
 import com.example.arildojunior.upcomingmovies.data.room.model.MovieDB
 import com.example.arildojunior.upcomingmovies.extension.removeBrackets
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableObserver
 import kotlinx.android.synthetic.main.activity_movie_details.*
-import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieDetailsActivity (): AppCompatActivity() {
 

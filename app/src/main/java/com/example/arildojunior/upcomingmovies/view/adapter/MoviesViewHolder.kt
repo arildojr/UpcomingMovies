@@ -6,8 +6,6 @@ import com.bumptech.glide.Glide
 import com.example.arildojunior.upcomingmovies.data.room.model.MovieDB
 import com.example.arildojunior.upcomingmovies.extension.removeBrackets
 import kotlinx.android.synthetic.main.item_movie.view.*
-import android.content.Intent
-import android.support.v4.content.ContextCompat.startActivity
 import com.example.arildojunior.upcomingmovies.data.bus.RxBus
 import com.example.arildojunior.upcomingmovies.view.MovieDetailsActivity
 

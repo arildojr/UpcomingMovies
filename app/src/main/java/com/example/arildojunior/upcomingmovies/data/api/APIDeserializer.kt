@@ -1,12 +1,8 @@
 package com.example.arildojunior.upcomingmovies.data.api
 
-import com.example.arildojunior.upcomingmovies.data.api.model.Movie
 import com.google.gson.*
 import java.lang.reflect.Type
 import com.google.gson.JsonElement
-import com.google.gson.JsonObject
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
 
 
 class APIDeserializer<T> : JsonDeserializer<T> {

@@ -1,15 +1,9 @@
 package com.example.arildojunior.upcomingmovies.data.room
 
 import android.arch.persistence.room.TypeConverter
-import java.util.Collections.emptyList
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.util.*
-import android.arch.persistence.room.TypeConverters
-import android.arch.persistence.room.PrimaryKey
-
-
-
 
 class Converters {
     internal var gson = Gson()

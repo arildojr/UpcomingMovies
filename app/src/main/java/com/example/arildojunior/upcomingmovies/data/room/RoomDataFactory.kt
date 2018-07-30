@@ -1,6 +1,5 @@
 package com.example.arildojunior.upcomingmovies.data.room
 
-import com.example.arildojunior.upcomingmovies.data.api.model.Genre
 import com.example.arildojunior.upcomingmovies.data.room.model.GenreDB
 import com.example.arildojunior.upcomingmovies.data.room.model.MovieDB
 

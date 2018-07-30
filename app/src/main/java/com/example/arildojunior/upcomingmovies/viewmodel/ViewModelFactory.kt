@@ -2,8 +2,6 @@ package com.example.arildojunior.upcomingmovies.viewmodel
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.example.arildojunior.upcomingmovies.data.api.APIClient
-import com.example.arildojunior.upcomingmovies.data.api.APIDataFactory
 import com.example.arildojunior.upcomingmovies.data.repository.MoviesRepository
 
 /**

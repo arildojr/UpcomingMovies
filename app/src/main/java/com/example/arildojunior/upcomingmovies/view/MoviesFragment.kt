@@ -9,10 +9,8 @@ import android.view.ViewGroup
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.arch.paging.PagedList
-import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.view.inputmethod.InputMethodManager
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import com.example.arildojunior.upcomingmovies.App
