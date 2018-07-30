@@ -7,9 +7,10 @@ import android.arch.persistence.room.TypeConverters
 import android.content.Context
 import com.example.arildojunior.upcomingmovies.data.room.DATABASE.DATABASE_MOVIE
 import com.example.arildojunior.upcomingmovies.data.room.DATABASE.DATABASE_MOVIE_VERSION
+import com.example.arildojunior.upcomingmovies.data.room.model.GenreDB
 import com.example.arildojunior.upcomingmovies.data.room.model.MovieDB
 
-@Database(entities = [MovieDB::class], version = DATABASE_MOVIE_VERSION, exportSchema = false)
+@Database(entities = [MovieDB::class, GenreDB::class], version = DATABASE_MOVIE_VERSION, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class MoviesDatabase : RoomDatabase() {
 

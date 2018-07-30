@@ -15,8 +15,8 @@ import okhttp3.OkHttpClient
 class MoviesDataModule {
     @AppScope
     @Provides
-    fun provideAPIClient(okHttpClient : OkHttpClient): APIClient {
-        return APIClient(okHttpClient)
+    fun provideAPIClient(): APIClient {
+        return APIClient()
     }
 
     @AppScope

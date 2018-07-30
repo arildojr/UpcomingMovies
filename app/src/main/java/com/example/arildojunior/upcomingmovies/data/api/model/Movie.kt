@@ -5,6 +5,7 @@ import com.example.arildojunior.upcomingmovies.data.api.ImageSizes
 import com.example.arildojunior.upcomingmovies.data.room.model.MovieDB
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+import java.util.*
 
 data class Movie(@SerializedName("vote_count") val voteCount: Int,
                  @SerializedName("id") val id: Long,
@@ -21,9 +22,9 @@ data class Movie(@SerializedName("vote_count") val voteCount: Int,
                  @SerializedName("overview") val overview: String,
                  @SerializedName("release_date") val releaseDate: String) : Serializable {
 
-    fun toMovieEntity() = this.run {
-        MovieDB(id.toLong(), voteCount, video, voteAverage, title, popularity,
+    fun toMovieEntity(genreNames : List<String>) = this.run {
+        MovieDB(id, voteCount, video, voteAverage, title, popularity,
                 APIPath.getImagePath(ImageSizes.W154, posterPath), originalLanguage, originalTitle,
-                genreIds, APIPath.getImagePath(ImageSizes.W154, backdropPath), adult, overview, releaseDate)
+                genreIds, genreNames, APIPath.getImagePath(ImageSizes.W780, backdropPath), adult, overview, releaseDate)
     }
 }

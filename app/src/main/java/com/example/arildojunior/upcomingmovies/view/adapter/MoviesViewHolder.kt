@@ -1,10 +1,16 @@
-package com.example.arildojunior.upcomingmovies.view
+package com.example.arildojunior.upcomingmovies.view.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.bumptech.glide.Glide
 import com.example.arildojunior.upcomingmovies.data.room.model.MovieDB
+import com.example.arildojunior.upcomingmovies.extension.removeBrackets
 import kotlinx.android.synthetic.main.item_movie.view.*
+import android.content.Intent
+import android.support.v4.content.ContextCompat.startActivity
+import com.example.arildojunior.upcomingmovies.data.bus.RxBus
+import com.example.arildojunior.upcomingmovies.view.MovieDetailsActivity
+
 
 class MoviesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -14,7 +20,12 @@ class MoviesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
         title.text = movie.title
         release_date.text = movie.releaseDate
-        genre.text = "Genre"
+        genre.text = movie.genreNames.toString().removeBrackets()
+        setOnClickListener(View.OnClickListener {
+            val intent = MovieDetailsActivity.newIntent(context)
+            RxBus.getSubject().onNext(movie)
+            context.startActivity(intent)
+        })
     }
 
     fun clear() = itemView.run {

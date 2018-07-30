@@ -18,6 +18,7 @@ import io.reactivex.ObservableOnSubscribe
 import com.example.arildojunior.upcomingmovies.App
 import com.example.arildojunior.upcomingmovies.R
 import com.example.arildojunior.upcomingmovies.data.room.model.MovieDB
+import com.example.arildojunior.upcomingmovies.view.adapter.MoviesAdapter
 import com.example.arildojunior.upcomingmovies.viewmodel.MoviesViewModel
 import com.example.arildojunior.upcomingmovies.viewmodel.ViewModelFactory
 import javax.inject.Inject

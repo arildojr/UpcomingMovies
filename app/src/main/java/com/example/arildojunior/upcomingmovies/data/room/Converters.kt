@@ -27,4 +27,18 @@ class Converters {
     fun fromList(someObjects: MutableList<Int>): String {
         return gson.toJson(someObjects)
     }
+
+    @TypeConverter
+    fun toGenreList(data: String?): MutableList<String> {
+        if (data == null) {
+            return Collections.emptyList()
+        }
+        val listType = object : TypeToken<MutableList<String>>() {}.getType()
+        return gson.fromJson(data, listType)
+    }
+
+    @TypeConverter
+    fun fromGenreList(someObjects: MutableList<String>): String {
+        return gson.toJson(someObjects)
+    }
 }

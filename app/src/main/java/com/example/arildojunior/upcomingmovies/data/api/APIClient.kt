@@ -1,5 +1,6 @@
 package com.example.arildojunior.upcomingmovies.data.api
 
+import com.example.arildojunior.upcomingmovies.data.api.model.Genre
 import com.example.arildojunior.upcomingmovies.data.api.model.Movie
 import com.example.arildojunior.upcomingmovies.utils.Constants
 import com.google.gson.Gson
@@ -11,7 +12,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class APIClient(okHttpClient: OkHttpClient) {
+class APIClient() {
     companion object {
         fun getService(): APIService = createRetrofit().create(APIService::class.java)
         private fun createRetrofit(): Retrofit = Retrofit.Builder()
@@ -26,6 +27,7 @@ class APIClient(okHttpClient: OkHttpClient) {
                         .build()
         private fun gsonDeserializer(): Gson = GsonBuilder()
                 .registerTypeAdapter(object : TypeToken<List<@JvmSuppressWildcards Movie>>() {}.type, APIDeserializer<Movie>())
+                .registerTypeAdapter(object : TypeToken<List<@JvmSuppressWildcards Genre>>() {}.type, APIDeserializer<Genre>())
                 .setLenient()
                 .create()
     }

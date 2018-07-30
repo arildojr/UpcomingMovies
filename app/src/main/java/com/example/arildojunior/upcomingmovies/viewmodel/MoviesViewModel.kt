@@ -61,5 +61,4 @@ class MoviesViewModel(private val moviesRepository: MoviesRepository): ViewModel
         disposables.clear()
         super.onCleared()
     }
-
 }

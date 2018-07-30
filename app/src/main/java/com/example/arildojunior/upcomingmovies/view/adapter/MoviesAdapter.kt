@@ -1,4 +1,4 @@
-package com.example.arildojunior.upcomingmovies.view
+package com.example.arildojunior.upcomingmovies.view.adapter
 
 import android.arch.paging.PagedListAdapter
 import android.support.v7.util.DiffUtil
