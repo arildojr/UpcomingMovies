@@ -1,7 +1,7 @@
 Upcoming Movies Coding Challenge using Kotlin, RxJava2, Retrofit2, Room, LiveData, Dagger2 and MVVM
 =============================================================================================
 
-This application displays all the upcoming movies and it's details from [MovieDB API] (https://developers.themoviedb.org/3).
+This application displays all the upcoming movies and it's details from [MovieDB API](https://developers.themoviedb.org/3).
 
 Libraries / Technologies Used
 ------------------------------
@@ -25,7 +25,7 @@ Features
 Screenshots
 ------------
 
-<img src="screenshots/Home.png" height="400" alt="Screenshot"/> 
+<img src="screenshots/Home.png" height="400" alt="Screenshot"/>
 <img src="screenshots/Detail.png" height="400" alt="Screenshot"/>
 
 TODO
