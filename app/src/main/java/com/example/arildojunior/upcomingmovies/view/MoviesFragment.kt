@@ -34,7 +34,7 @@ class MoviesFragment : Fragment(){
 
     private lateinit var viewModel: MoviesViewModel
 
-    private var moviesAdapter: MoviesAdapter = MoviesAdapter()
+    var moviesAdapter: MoviesAdapter = MoviesAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -72,8 +72,8 @@ class MoviesFragment : Fragment(){
                 override fun afterTextChanged(s: Editable?) = Unit
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int){
-                    val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm.hideSoftInputFromWindow(editText.getWindowToken(), 0)
+//                    val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//                    imm.hideSoftInputFromWindow(editText.getWindowToken(), 0)
                     subscriber.onNext(s.toString())
                 }
             })

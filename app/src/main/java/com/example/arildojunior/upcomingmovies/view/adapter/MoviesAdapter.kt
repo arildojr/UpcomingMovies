@@ -28,7 +28,6 @@ class MoviesAdapter : PagedListAdapter<MovieDB, MoviesViewHolder>(movieDiffCallb
             override fun areItemsTheSame(oldItem: MovieDB, newItem: MovieDB): Boolean {
                 return oldItem.id == newItem.id
             }
-
             override fun areContentsTheSame(oldItem: MovieDB, newItem: MovieDB): Boolean {
                 return oldItem == newItem
             }

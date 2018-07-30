@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.MovieDetailsActivity" />
+        <activity android:name=".view.MovieDetailsActivity" android:parentActivityName="com.example.arildojunior.upcomingmovies.MainActivity">
+        </activity>
     </application>
 
 </manifest>

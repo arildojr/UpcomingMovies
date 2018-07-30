@@ -54,7 +54,7 @@ class PageListMovieCallback(private val apiDataFactory: APIDataFactory,
                             .observeOn(Schedulers.io())
                             .toCompletable()
                             .doFinally { isRequestRunning = false }
-                            .subscribe({ Log.i("PageListMovieCallback", "Movies Completed") })
+                            .subscribe({ Log.i("PageListMovieCallback", "Movies Loaded") })
                 })
     }
 
