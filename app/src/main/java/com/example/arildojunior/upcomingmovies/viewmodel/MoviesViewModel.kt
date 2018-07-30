@@ -25,8 +25,6 @@ class MoviesViewModel(private val moviesRepository: MoviesRepository): ViewModel
 
     val currentSearch :LiveData<String>
         get() = _currentSearch
-    val moviesList :LiveData<List<Movie>>
-        get() = _moviesList
     val progressVisibility :LiveData<Boolean>
         get() = _progressVisibility
 

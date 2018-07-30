@@ -27,6 +27,7 @@
         android:textStyle="bold"
         android:minLines="2"
         android:maxLines="3"
+        android:inputType="textMultiLine"
         app:layout_constraintStart_toEndOf="@+id/poster"
         app:layout_constraintTop_toTopOf="parent" />
 
