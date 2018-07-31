@@ -14,6 +14,7 @@ Libraries / Technologies Used
   - MVVM: Model-View-ViewModel design pattern that provides uncoupling and play nicely with Reactive Programming
   - Glide: easy to use image loading framework for Android
   - Paging Library: makes it easier to load data gradually in a Recycler View
+  
 Features
 ---------
 
